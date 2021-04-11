@@ -3,6 +3,9 @@ package com.shelter.animalback.component.api.animal;
 import com.shelter.animalback.model.AnimalDao;
 import com.shelter.animalback.repository.AnimalRepository;
 import lombok.SneakyThrows;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,13 +48,13 @@ public class ListAnimalsTest {
     }
 
     @Test
-    //@SneakyThrows
+    @SneakyThrows
     public void listAnimalsWithRightSchema() {
-        /*var response = mockMvc.perform(get("/animals")).andReturn().getResponse();
-        var jsonSchema = new JSONObject(new JSONTokener(listAnimalTest.class.getResourceAsStream("/animals.json")));
+        var response = mockMvc.perform(get("/animals")).andReturn().getResponse();
+        var jsonSchema = new JSONObject(new JSONTokener(ListAnimalsTest.class.getResourceAsStream("/animals.json")));
         var jsonArray = new JSONArray(response.getContentAsString());
 
         var schema = SchemaLoader.load(jsonSchema);
-        schema.validate(jsonArray);*/
+        schema.validate(jsonArray);
     }
 }
