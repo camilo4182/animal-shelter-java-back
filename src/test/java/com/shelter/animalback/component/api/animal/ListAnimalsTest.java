@@ -1,4 +1,4 @@
-package com.shelter.animalback.component.api;
+package com.shelter.animalback.component.api.animal;
 
 import com.shelter.animalback.model.AnimalDao;
 import com.shelter.animalback.repository.AnimalRepository;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-public class ListAnimalTest {
+public class ListAnimalsTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -31,7 +31,6 @@ public class ListAnimalTest {
     private AnimalRepository animalRepository;
 
     @BeforeEach
-    @SneakyThrows
     public void setUp() {
         var cat = new AnimalDao("Thor", "Birmano", "Male", false);
         animalRepository.save(cat);
