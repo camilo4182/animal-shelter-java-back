@@ -1,7 +1,7 @@
 package com.shelter.animalback.component.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.shelter.animalback.controller.dto.AnimalDto;
+import com.shelter.animalback.model.AnimalDao;
+import com.shelter.animalback.repository.AnimalRepository;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -28,15 +27,14 @@ public class ListAnimalTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private AnimalRepository animalRepository;
+
     @BeforeEach
     @SneakyThrows
     public void setUp() {
-        AnimalDto cat = new AnimalDto("Thor", "Birmano", "Male", false, new String[]{"Leucemia Felina"});
-        var catString = new ObjectMapper().writeValueAsString(cat);
-        mockMvc.perform(post("/animals")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(catString)
-        );
+        var cat = new AnimalDao("Thor", "Birmano", "Male", false);
+        animalRepository.save(cat);
     }
 
     @Test
