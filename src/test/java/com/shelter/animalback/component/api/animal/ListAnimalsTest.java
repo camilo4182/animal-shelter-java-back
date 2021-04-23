@@ -50,7 +50,7 @@ public class ListAnimalsTest {
     }
 
     @Test
-    @SneakyThrows
+    //@SneakyThrows
     public void listAnimalsWithRightSchema() {
         /**var response = mockMvc.perform(get("/animals")).andReturn().getResponse();
         var jsonSchema = new JSONObject(new JSONTokener(ListAnimalsTest.class.getResourceAsStream("/animals.json")));
