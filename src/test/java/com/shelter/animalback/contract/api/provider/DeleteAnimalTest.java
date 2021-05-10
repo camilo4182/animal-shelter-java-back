@@ -40,6 +40,8 @@ public class DeleteAnimalTest {
 
     @BeforeEach
     public void changeContext(PactVerificationContext context) {
+        System.setProperty("pact.verifier.publishResults", "true");
+        System.setProperty("pact.provider.version", "1.0");
         MockMvcTestTarget testTarget = new MockMvcTestTarget();
         testTarget.setControllers(animalController);
         context.setTarget(testTarget);
