@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 public class AnimalController {
+
     @Autowired
     private AnimalService animalService;
 
@@ -32,7 +33,6 @@ public class AnimalController {
     public ResponseEntity<?> getAnimal(@PathVariable("name") String name) {
         try {
             var animal = animalService.get(name);
-
             return ResponseEntity.status(HttpStatus.OK).body(map(animal));
         } catch (AnimalNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(String.format("The animal called %s does not exists", name));
@@ -88,7 +88,7 @@ public class AnimalController {
                 dto.getBreed(),
                 dto.getGender(),
                 dto.isVaccinated(),
-                dto.getVaccines());
+                dto.getVaccines() == null ? new String[0] : dto.getVaccines());
     }
 
     private Animal map(UpdateAnimalBodyDto dto) {

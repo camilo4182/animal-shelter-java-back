@@ -22,7 +22,6 @@ public class AnimalServiceImp implements AnimalService {
     @Override
     public List<Animal> getAll() {
         var animalsDao = repository.findAll();
-
         return StreamSupport
                 .stream(animalsDao.spliterator(), false)
                 .map(dao -> this.map(dao)).collect(Collectors.toList());
@@ -31,20 +30,16 @@ public class AnimalServiceImp implements AnimalService {
     @Override
     public Animal get(String name) {
         var animalDao = repository.findByName(name);
-
         if (animalDao == null) {
             throw new AnimalNotFoundException(name);
         }
-
         return map(animalDao);
     }
 
     @Override
     public Animal save(Animal animal) {
         var dao = map(animal);
-
         var saved = repository.save(dao);
-
         return map(saved);
     }
 
@@ -53,42 +48,32 @@ public class AnimalServiceImp implements AnimalService {
         if (animal.getName() != null && !name.equals(animal.getName())) {
             throw new DataConflictException();
         }
-
         var oldAnimal = repository.findByName(name);
-
         if (oldAnimal == null) {
             throw new AnimalNotFoundException(name);
         }
-
         if (animal.getName() == null) {
             animal.setName(name);
         }
-
         var newDao = map(animal);
         newDao.setId(oldAnimal.getId());
-
         repository.save(newDao);
-
         return animal;
     }
 
     @Override
     public void delete(String name) {
         var dao = repository.findByName(name);
-
         if (dao == null) {
             throw new AnimalNotFoundException(name);
         }
-
         repository.delete(dao);
     }
 
     private Animal map(AnimalDao dao) {
         var vaccinesDao = dao.getVaccines();
-
         var vaccines = vaccinesDao == null ? new String[0] :
                 vaccinesDao.stream().map(vaccineDao -> vaccineDao.getName()).toArray(size -> new String[size]);
-
         return new Animal(
                 dao.getId(),
                 dao.getName(),
