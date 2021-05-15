@@ -47,12 +47,23 @@ public class AnimalShelterProviderTest {
         context.setTarget(testTarget);
     }
 
+    @State("register an animal")
+    public void registerAnimal(){
+        Animal animal = new Animal();
+        animal.setName("Leia");
+        animal.setBreed("Siames");
+        animal.setGender("Female");
+        animal.setVaccinated(true);
+
+        Mockito.when(animalService.save(Mockito.any(Animal.class))).thenReturn(animal);
+    }
+
     @State("list animals")
     public void listAnimals() {
         Animal animal = new Animal();
-        animal.setName("manchas");
+        animal.setName("Bigotes");
         animal.setBreed("Bengali");
-        animal.setGender("Female");
+        animal.setGender("Male");
         animal.setVaccinated(true);
 
         ArrayList<Animal> animals = new ArrayList<>();
